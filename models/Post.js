@@ -7,6 +7,12 @@ const PostSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Author",
   },
+  tags: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Tag",
+    },
+  ],
 });
 
 module.exports = model("Post", PostSchema);

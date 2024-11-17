@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { tagAdd } = require("./posts.controllers");
 const {
   fetchPost,
   postsGet,
@@ -27,5 +28,7 @@ router.get("/", postsGet);
 router.delete("/:postId", postsDelete);
 
 router.put("/:postId", postsUpdate);
+
+router.post("/:postId/tags/:tagId", tagAdd);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const Post = require("../../models/Post");
+const Tag = require("../../models/Tag");
 
 exports.fetchPost = async (postId, next) => {
   try {
@@ -38,8 +39,32 @@ exports.postsUpdate = async (req, res) => {
 
 exports.postsGet = async (req, res, next) => {
   try {
-    const posts = await Post.find().populate("authorId", "name");
+    const posts = await Post.find()
+      .populate("authorId", "name")
+      .populate("tags", "name");
     res.json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.tagAdd = async (req, res, next) => {
+  try {
+    const { postId, tagId } = req.params;
+
+    const post = await Post.findByIdAndUpdate(
+      postId,
+      { $push: { tags: tagId } },
+      { new: true }
+    );
+
+    const tag = await Tag.findByIdAndUpdate(
+      tagId,
+      { $push: { posts: postId } },
+      { new: true }
+    );
+
+    res.status(200).json({ post, tag });
   } catch (error) {
     next(error);
   }
