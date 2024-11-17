@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/JoinCODED/Task-Express-M5-Relations-noSql#readme",
   "dependencies": {
-    "express": "^4.17.2",
+    "express": "^4.21.1",
     "mongoose": "^7.1.0"
   }
 }

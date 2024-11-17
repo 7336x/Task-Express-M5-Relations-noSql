@@ -1,4 +1,4 @@
-const Post = require('../../models/Post');
+const Post = require("../../models/Post");
 
 exports.fetchPost = async (postId, next) => {
   try {
@@ -9,14 +9,14 @@ exports.fetchPost = async (postId, next) => {
   }
 };
 
-exports.postsCreate = async (req, res) => {
-  try {
-    const newPost = await Post.create(req.body);
-    res.status(201).json(newPost);
-  } catch (error) {
-    next(error);
-  }
-};
+// exports.postsCreate = async (req, res) => {
+//   try {
+//     const newPost = await Post.create(req.body);
+//     res.status(201).json(newPost);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 exports.postsDelete = async (req, res) => {
   try {
@@ -36,9 +36,9 @@ exports.postsUpdate = async (req, res) => {
   }
 };
 
-exports.postsGet = async (req, res) => {
+exports.postsGet = async (req, res, next) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().populate("authorId", "name");
     res.json(posts);
   } catch (error) {
     next(error);
